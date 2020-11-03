@@ -21,11 +21,19 @@ namespace FinancialWeb.Api.Controllers
             _context = context;
         }
 
+        public UsuariosController()
+        {
+        }
+
         // GET: api/Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
         {
-            return await _context.Usuario.ToListAsync();
+            var lista = GerarListaAsync();
+            if (lista.IsCompleted)
+                return Ok(lista);
+            else
+                return BadRequest(new List<Usuario>());
         }
 
         // GET: api/Usuarios/5
@@ -105,6 +113,22 @@ namespace FinancialWeb.Api.Controllers
         private bool UsuarioExists(int id)
         {
             return _context.Usuario.Any(e => e.Id == id);
+        }
+
+        public async Task<IEnumerable<Usuario>> GerarListaAsync()
+        {
+            var lista = await _context.Usuario.ToListAsync();
+            try
+            {
+                if (lista.Count() > 0)
+                    return lista;
+                else
+                    return new List<Usuario>();
+            }
+            catch (Exception)
+            {
+                return new List<Usuario>();
+            }
         }
     }
 }
