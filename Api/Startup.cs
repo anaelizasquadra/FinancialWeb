@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,10 @@ namespace FinancialWeb.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<FinancialContext>(options =>
+                    options
+                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Financial;Trusted_Connection=True;"));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();

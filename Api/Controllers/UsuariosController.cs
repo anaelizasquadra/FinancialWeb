@@ -21,10 +21,6 @@ namespace FinancialWeb.Api.Controllers
             _context = context;
         }
 
-        public UsuariosController()
-        {
-        }
-
         // GET: api/Usuarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
@@ -115,7 +111,7 @@ namespace FinancialWeb.Api.Controllers
             return _context.Usuario.Any(e => e.Id == id);
         }
 
-        public async Task<IEnumerable<Usuario>> GerarListaAsync()
+        private async Task<IEnumerable<Usuario>> GerarListaAsync()
         {
             var lista = await _context.Usuario.ToListAsync();
             try
