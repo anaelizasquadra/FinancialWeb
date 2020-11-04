@@ -23,7 +23,7 @@ namespace FinancialWeb.Api.Controllers
 
         // GET: api/Usuarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
+        public async Task<ActionResult<List<Usuario>>> GetUsuario()
         {
             var lista = GerarListaAsync();
             if (lista.Count() > 0)
@@ -36,7 +36,9 @@ namespace FinancialWeb.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Usuario>> GetUsuario(int id)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
+            var usuario = new Usuario();
+
+            usuario = await _context.Usuario.FindAsync(id);
 
             if (usuario == null)
             {

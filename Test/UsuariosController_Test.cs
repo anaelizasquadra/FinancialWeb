@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace FinancialWeb.Test
+namespace FinancialWeb.xUnitTest
 {
     public class UsuariosController_Test
     {
