@@ -26,7 +26,7 @@ namespace FinancialWeb.Api.Controllers
         public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
         {
             var lista = GerarListaAsync();
-            if (lista.IsCompleted)
+            if (lista.Count() > 0)
                 return Ok(lista);
             else
                 return BadRequest(new List<Usuario>());
@@ -111,20 +111,15 @@ namespace FinancialWeb.Api.Controllers
             return _context.Usuario.Any(e => e.Id == id);
         }
 
-        private async Task<IEnumerable<Usuario>> GerarListaAsync()
+        private IEnumerable<Usuario> GerarListaAsync()
         {
-            var lista = await _context.Usuario.ToListAsync();
-            try
-            {
-                if (lista.Count() > 0)
-                    return lista;
-                else
-                    return new List<Usuario>();
-            }
-            catch (Exception)
-            {
+            var lista = _context.Usuario.ToList();
+
+            if (lista.Count() > 0)
+                return lista;
+            else
                 return new List<Usuario>();
-            }
+
         }
     }
 }

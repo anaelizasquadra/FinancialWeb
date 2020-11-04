@@ -30,7 +30,7 @@ namespace FinancialWeb.Api
 
             services.AddDbContext<FinancialContext>(options =>
                     options
-                    .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Financial;Trusted_Connection=True;"));
+                    .UseSqlServer(Configuration.GetConnectionString("FinancialContext")));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
